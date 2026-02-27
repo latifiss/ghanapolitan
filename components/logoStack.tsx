@@ -41,7 +41,7 @@ const LogoStack = ({ companyNames }: Props) => {
 
   return (
     <StackWrapper>
-      {logoItems.slice(0, 3).map((logo, index) => (
+      {logoItems.slice(0, 2).map((logo, index) => (
         <Logo key={logo.id} $index={index}>
           <LogoImage
             src={logo.src}

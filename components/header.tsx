@@ -245,7 +245,7 @@ const Header = () => {
         </InsideAdWrapper>
       </AdContainer>
       <Component>
-        <TopRow href="/home">
+        <TopRow href="/">
           <div />
           <Logo src="/assets/logos/logo-black.svg" alt="logo" width={322} height={65} />
         </TopRow>

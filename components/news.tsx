@@ -4,6 +4,7 @@ import Image from 'next/image'
 import React from 'react'
 import styled, { css } from 'styled-components'
 import LogoStack from './logoStack'
+import { getSourceImage } from '@/utils/getSourceImage'
 
 const Wrapper = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ const Wrapper = styled.div`
   padding-bottom: 12px;
   padding-right: 8px;
   padding-left: 8px;
-  border-bottom: 1.5px solid #000000;
+  border-bottom: 1.5px solid #e7e7e7;
 
   @media (max-width: 576px) {
     border-bottom: 0.5px solid #e7e7e7;
@@ -147,6 +148,31 @@ const Time = styled.p`
   clear: both; 
 `
 
+const SourceRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  width: 100%;
+  margin-top: 3px;
+`
+
+const SourceText = styled.p`
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  color: ${({ theme }) => theme.colors.text};
+  font-family: 'franklin-normal';
+  white-space: nowrap;
+  clear: both; 
+`
+
+const SourceImage = styled(Image)`
+  width: 14px;  
+  height: 14px;
+  object-fit: contain;
+`
+
 const LogosTimeBlock = styled.div`
   display: flex;
   align-items: center;
@@ -171,6 +197,7 @@ interface NewsProps {
   height?: number
   subcategory?: string
   tags?: string[]
+  sourceText?: string
 }
 
 const getTagText = (tag: NewsProps['tag']) => {
@@ -197,13 +224,16 @@ const News = ({
   width = 800, 
   height = 450,
   subcategory = '',
-  tags 
+  tags,
+  sourceText
 }: NewsProps) => {
   const tagText = getTagText(tag)
   const hasTags = tags && tags.length > 0
   const displayTags = hasTags ? tags.slice(0, 3) : []
   const isMarketsCategory = subcategory.toLowerCase() === 'markets'
   const shouldShowLogos = isMarketsCategory && hasTags
+  const shouldShowSource = sourceText && sourceText.toLowerCase() !== 'ghanapolitan'
+  const sourceImage = sourceText ? getSourceImage(sourceText) : '/assets/sources/default.png'
 
   return (
     <Wrapper>
@@ -223,6 +253,12 @@ const News = ({
         </LogosTimeBlock>
       ) : (
         <Time>{time}</Time>
+      )}
+      {shouldShowSource && (
+        <SourceRow>
+          <SourceImage src={sourceImage} alt={sourceText} width={14} height={14} />
+          <SourceText>{sourceText}</SourceText>
+        </SourceRow>
       )}
     </Wrapper>
   )

@@ -526,6 +526,7 @@ const NewsSection: React.FC<NewsSectionProps> = ({
             image={item.image_url || '/images/default-news.jpg'}
             subcategory={item.subcategory?.[0] || item.category || ' '}
             slug={item.slug}
+            sourceText={item.source_name}
             width={800}
             height={450}
             tags={item.tags}
