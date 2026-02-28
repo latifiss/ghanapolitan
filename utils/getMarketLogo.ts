@@ -39,6 +39,23 @@ export function getMarketLogoByName(stockName: string): string {
     'trust bank gambia': '/assets/stocks/trustbank.jpg',
     'tullow oil': '/assets/stocks/tullow-oil.svg',
     'unilever ghana': '/assets/stocks/unilever.svg',
+
+    'bank of ghana': '/assets/core/bog.png',
+    'cocobod': '/assets/core/cocobod.png',
+    'goldbod': '/assets/core/goldbod.png',
+    'comac': '/assets/core/comac.png',
+    'gse': '/assets/core/gse.png',
+    'ghana stock exchange': '/assets/core/gse.png',
+
+    'cocoa': '/assets/core/cocoa.svg',
+    'crude-oil': '/assets/core/crude-oil.svg',
+    'dollar': '/assets/core/dollar.svg',
+    'gold': '/assets/core/gold.svg',
+    'silver': '/assets/core/silver.svg',
+    'world': '/assets/core/world.svg',
+    'lithium': '/assets/core/lithium.svg',
+
+    'kasapreko': '/assets/core/kasapreko.png',
   };
 
   if (!stockName) return '/assets/stocks/default.svg';
