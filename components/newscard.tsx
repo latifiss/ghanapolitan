@@ -34,7 +34,7 @@ export const Thumbnail = styled(Image)`
   width: 35%; 
   min-height: 103px;
   max-width: 250px; 
-  height: auto;
+  max-height: 162px;
   display: block;
   object-fit: cover;
 
@@ -314,7 +314,7 @@ const NewsCard = ({
   height = 450 
 }: NewsProps) => {
   const tagText = getTagText(tag)
-  const shouldShowSource = sourceText && sourceText.toLowerCase() !== 'ghanapolitan'
+  const shouldShowSource = sourceText && sourceText.toLowerCase() !== 'Ghanapolitan'
   const sourceImage = sourceText ? getSourceImage(sourceText) : '/assets/sources/default.png'
 
   return (

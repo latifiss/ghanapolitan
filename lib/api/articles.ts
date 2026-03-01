@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://oak.21centurynews.com/api/ghanapolitan/article';
+const BASE_URL = 'https://oak.21centurynews.com/api/Ghanapolitan/article';
 
 export interface CommentData {
   author: string;

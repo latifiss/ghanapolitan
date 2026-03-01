@@ -3,16 +3,16 @@ import { getArticlesByCategory } from '@/lib/api/articles';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Politics | GhanaPolitan',
+  title: 'Politics | Ghanapolitan',
   description: 'Latest political news, analysis, and coverage from Ghana and around the world.',
   openGraph: {
-    title: 'Politics | GhanaPolitan',
+    title: 'Politics | Ghanapolitan',
     description: 'Latest political news, analysis, and coverage from Ghana and around the world.',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: 'Politics | GhanaPolitan',
+    title: 'Politics | Ghanapolitan',
     description: 'Latest political news, analysis, and coverage from Ghana and around the world.',
   },
   keywords: ['Politics', 'Ghana politics', 'political news', 'government', 'elections'],

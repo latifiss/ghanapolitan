@@ -140,7 +140,7 @@ const DataChange = styled.p<{
   font-weight: 500;
   color: ${props => 
     props.$isUnchanged 
-      ? '#888888' 
+      ? '#727e8a' 
       : props.$isPositive 
         ? '#13D14C' 
         : '#FF0606'

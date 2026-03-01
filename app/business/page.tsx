@@ -3,16 +3,16 @@ import { getArticlesByCategory } from '@/lib/api/articles';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Business | GhanaPolitan',
+  title: 'Business | Ghanapolitan',
   description: 'Latest business news, market updates, economy, finance, and entrepreneurship in Ghana and Africa.',
   openGraph: {
-    title: 'Business | GhanaPolitan',
+    title: 'Business | Ghanapolitan',
     description: 'Latest business news, market updates, economy, finance, and entrepreneurship in Ghana and Africa.',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: 'Business | GhanaPolitan',
+    title: 'Business | Ghanapolitan',
     description: 'Latest business news, market updates, economy, finance, and entrepreneurship in Ghana and Africa.',
   },
   keywords: ['Business', 'Ghana business', 'economy', 'finance', 'markets', 'entrepreneurship', 'investment'],

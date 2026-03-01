@@ -3,16 +3,16 @@ import { getArticlesByCategory } from '@/lib/api/articles';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Africa | GhanaPolitan',
+  title: 'Africa | Ghanapolitan',
   description: 'Latest news from across Africa. Politics, business, culture, and developments from all African regions.',
   openGraph: {
-    title: 'Africa | GhanaPolitan',
+    title: 'Africa | Ghanapolitan',
     description: 'Latest news from across Africa. Politics, business, culture, and developments from all African regions.',
     type: 'website',
   },
   twitter: {
     card: 'summary',
-    title: 'Africa | GhanaPolitan',
+    title: 'Africa | Ghanapolitan',
     description: 'Latest news from across Africa. Politics, business, culture, and developments from all African regions.',
   },
   keywords: ['Africa', 'African news', 'West Africa', 'East Africa', 'Southern Africa', 'North Africa', 'Central Africa', 'African politics'],

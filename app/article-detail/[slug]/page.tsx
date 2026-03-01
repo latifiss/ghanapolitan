@@ -6,7 +6,7 @@ type PageParams = Promise<{ slug: string }>;
 export async function generateMetadata({ params }: { params: PageParams }) {
   const { slug } = await params;
   
-  if (!slug || slug === 'undefined') return { title: 'Article | GhanaPolitan' };
+  if (!slug || slug === 'undefined') return { title: 'Article | Ghanapolitan' };
 
   try {
     const response = await getArticleBySlug(slug);
@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: { params: PageParams }) {
     
     if (article) {
       return {
-        title: `${article.title} | GhanaPolitan`,
-        description: article.description || 'Read this article on GhanaPolitan',
+        title: `${article.title} | Ghanapolitan`,
+        description: article.description || 'Read this article on Ghanapolitan',
         openGraph: {
           title: article.title,
           description: article.description,
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: PageParams }) {
     console.error('Metadata error:', error);
   }
   
-  return { title: 'Article | GhanaPolitan' };
+  return { title: 'Article | Ghanapolitan' };
 }
 
 export default async function Page({ params }: { params: PageParams }) {

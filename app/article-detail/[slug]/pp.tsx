@@ -186,7 +186,7 @@ const ArticleDetail = ({ article, similarArticles }: ArticleDetailProps) => {
         if (!article?._id) return;
 
         if (typeof window !== 'undefined') {
-            const bookmarks = JSON.parse(localStorage.getItem('ghanapolitan_bookmarks') || '[]');
+            const bookmarks = JSON.parse(localStorage.getItem('Ghanapolitan_bookmarks') || '[]');
             setIsBookmarked(bookmarks.includes(article._id));
         }
     }, [article?._id]);
@@ -204,7 +204,7 @@ const ArticleDetail = ({ article, similarArticles }: ArticleDetailProps) => {
     const handleBookmark = () => {
         if (typeof window === 'undefined' || !article._id) return;
         
-        const bookmarks = JSON.parse(localStorage.getItem('ghanapolitan_bookmarks') || '[]');
+        const bookmarks = JSON.parse(localStorage.getItem('Ghanapolitan_bookmarks') || '[]');
         let newBookmarks;
         
         if (isBookmarked) {
@@ -214,7 +214,7 @@ const ArticleDetail = ({ article, similarArticles }: ArticleDetailProps) => {
             newBookmarks = [...bookmarks, article._id];
             setIsBookmarked(true);
         }
-        localStorage.setItem('ghanapolitan_bookmarks', JSON.stringify(newBookmarks));
+        localStorage.setItem('Ghanapolitan_bookmarks', JSON.stringify(newBookmarks));
     };
 
     const handleShare = async () => {

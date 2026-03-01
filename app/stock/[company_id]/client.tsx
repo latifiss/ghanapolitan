@@ -16,6 +16,9 @@ import Card from '@/components/card';
 import stocksApi, { Profile, Statistics, Dividends, Earnings, Financial, Holders, PriceHistory } from '@/lib/api/stocks';
 import { getStockLogo } from '@/utils/getStockLogo';
 import { formatPercentage } from '@/utils/percentageFormatter';
+import NewsAlt from '@/components/newsAlt';
+import { getArticlesByTag } from '@/lib/api/articles';
+import type { Article } from '@/lib/api/articles';
 
 const blink = keyframes`
     0% {
@@ -358,13 +361,18 @@ const StockCurrency = styled.p`
     }
 `;
 
-const StockChange = styled.p<{ $isPositive: boolean }>`
+const StockChange = styled.p<{ $isPositive: boolean; $isUnchanged: boolean }>`
     font-size: 28px;
     line-height: 32px;
     font-weight: 700;
     margin: 0;
     font-family: 'cheltenham-normal';
-    color: ${({ $isPositive }) => ($isPositive ? '#4ab24b' : '#FF0606')};
+    color: ${({ $isPositive, $isUnchanged }) => 
+        $isUnchanged 
+            ? '#727e8a' 
+            : $isPositive 
+                ? '#4ab24b' 
+                : '#FF0606'};
 
     @media only screen and (max-width: 768px) {
         font-size: 21px;
@@ -543,6 +551,17 @@ const DebugContainer = styled.div`
     overflow-y: auto;
 `;
 
+const formatDate = (timestamp?: string) => {
+  if (!timestamp) return ' ';
+  return new Date(timestamp).toLocaleString();
+};
+
+const getTagType = (article?: Article | null) => {
+  if (!article) return '';
+  if (article.tags && article.tags.length > 0) return article.tags[0];
+  return article.category || '';
+};
+
 interface CompanyData {
   profile: Profile | null;
   statistics: Statistics | null;
@@ -572,6 +591,8 @@ const StockPageClient = ({ companyId, initialData }: StockPageClientProps) => {
     });
     const [error, setError] = useState<string | null>(null);
     const [debugInfo, setDebugInfo] = useState<string>('');
+    const [newsArticles, setNewsArticles] = useState<Article[]>([]);
+    const [moreStockStats, setMoreStockStats] = useState<Record<string, Statistics | null>>({});
     
     useEffect(() => {
         if (!initialData) {
@@ -672,6 +693,59 @@ const StockPageClient = ({ companyId, initialData }: StockPageClientProps) => {
             }
         }
     }, [companyId, initialData]);
+
+    useEffect(() => {
+        const TICKERS = [
+          'ACCESS','AADS','ASG','ALLGH','EGH','GCB','GOIL','GGBL','MTNGH',
+          'SOGEGH','SCB','TOTAL','TLW','UNIL','SIC','RBGH','TBL','FML'
+        ];
+
+        const fetchMoreStocks = async () => {
+          try {
+            const results = await Promise.all(
+              TICKERS.map(async (t) => {
+                try {
+                  const res = await stocksApi.getStatisticsByCompanyId(t);
+                  const apiData: any = (res as any)?.data ?? res;
+                  const stats = apiData?.statistics ?? apiData ?? null;
+                  return { t, stats };
+                } catch (err) {
+                  console.error(`Error fetching stats for ${t}:`, err);
+                  return { t, stats: null };
+                }
+              })
+            );
+
+            const map: Record<string, Statistics | null> = {};
+            for (const r of results) {
+              map[r.t] = r.stats;
+            }
+            setMoreStockStats(map);
+          } catch (err) {
+            console.error('Error fetching more stock statistics:', err);
+          }
+        };
+
+        fetchMoreStocks();
+    }, []);
+
+    useEffect(() => {
+        const name = companyData.profile?.about?.company_name;
+        if (!name) return;
+
+        const fetchArticles = async () => {
+            try {
+                const res = await getArticlesByTag(name, 1, 3);
+                const articles = res?.data?.articles || [];
+                setNewsArticles(articles.slice(0, 3));
+            } catch (err) {
+                console.error('Error fetching related articles:', err);
+                setNewsArticles([]);
+            }
+        };
+
+        fetchArticles();
+    }, [companyData.profile]);
     
     const toggleMarket = () => {
         setIsMarketOpen(prev => !prev);
@@ -721,7 +795,8 @@ const StockPageClient = ({ companyId, initialData }: StockPageClientProps) => {
     
     const currentPrice = keyStats.current_price || '0.00';
     const priceChange = keyStats.percentage_change || 0;
-    const isPositiveChange = priceChange >= 0;
+    const isPositiveChange = priceChange > 0;
+    const isUnchangedChange = priceChange === 0;
     const formattedChange = formatPercentage(priceChange);
     const currency = keyStats.currency || 'GHS';
     const tickerSymbol = about.ticker_symbol || '';
@@ -754,7 +829,7 @@ const StockPageClient = ({ companyId, initialData }: StockPageClientProps) => {
                                     <StockValue>{currentPrice}</StockValue>
                                     <StockCurrency>{currency}</StockCurrency>
                                 </StockValueRow>
-                                <StockChange $isPositive={isPositiveChange}>
+                                <StockChange $isPositive={isPositiveChange} $isUnchanged={isUnchangedChange}>
                                     {formattedChange}
                                 </StockChange>
                             </StockPriceRow>
@@ -851,21 +926,29 @@ const StockPageClient = ({ companyId, initialData }: StockPageClientProps) => {
                             )}
                         </TabContent>
                         
-                        <NewsContainer>
+                        {newsArticles.length > 0 && (
+                          <NewsContainer>
                             <Header>
                                 <HeaderText>In the News</HeaderText>
                             </Header>
-                            <Card
-                                title="Ghana's Economic Outlook for 2024: Navigating Challenges and Opportunities"
-                                description="As Ghana steps into 2024, the economic landscape is marked by a blend of challenges and opportunities. As Ghana steps into 2024, the economic landscape is marked by a blend of challenges and opportunities. As Ghana steps into 2024, the economic landscape is marked by a blend of challenges and opportunities."
-                                time="5 MIN AGO"
-                            />
-                            <Card
-                                title="Ghana's Economic Outlook for 2024: Navigating Challenges and Opportunities"
-                                description="As Ghana steps into 2024, the economic landscape is marked by a blend of challenges and opportunities. As Ghana steps into 2024, the economic landscape is marked by a blend of challenges and opportunities. As Ghana steps into 2024, the economic landscape is marked by a blend of challenges and opportunities."
-                                time="5 MIN AGO"
-                            />
-                        </NewsContainer>
+                            {newsArticles.slice(0, 3).map((item: Article) => (
+                                <NewsAlt
+                                    key={item._id || item.slug}
+                                    tag={getTagType(item)}
+                                    title={item.title}
+                                    description={item.description}
+                                    time={formatDate(item.published_at || item.createdAt)}
+                                    subcategory={item.subcategory?.[0] || item.category || ' '}
+                                    image={item.image_url || ''}
+                                    width={800}
+                                    height={450}
+                                    slug={item.slug}
+                                    sourceText={item.source_name}
+                                    tags={item.tags}
+                                />
+                            ))}
+                          </NewsContainer>
+                        )}
                     </InfoContainer>
                 </Left>
 
@@ -874,24 +957,150 @@ const StockPageClient = ({ companyId, initialData }: StockPageClientProps) => {
                         <HeaderText>More Stocks on GSE</HeaderText>
                     </Header>
                     <Content>
-                        <StockItem image="/assets/stocks/access.svg" label="Access Bank" code="ACCESS" value="12.45" change={1.23} link="/stock/ACCESS" />
-                        <StockItem image="/assets/stocks/anglogold.svg" label="AngloGold Ashanti" code="AGA" value="98.10" change={-0.85} link="/stock/AADS" />
-                        <StockItem image="/assets/stocks/asante-gold.svg" label="Asante Gold" code="ASG" value="6.75" change={2.14} link="/stock/ASG" />
-                        <StockItem image="/assets/stocks/atlantic-lithium.svg" label="Atlantic Lithium" code="ALLGH" value="3.42" change={-1.02} link="/stock/ALLGH" />
-                        <StockItem image="/assets/stocks/ecobank.svg" label="Ecobank" code="EGH" value="5.88" change={0.64} link="/stock/EGH" />
-                        <StockItem image="/assets/stocks/gcb.webp" label="Ghana Commercial Bank" code="GCB" value="7.30" change={-0.45} link="/stock/GCB" />
-                        <StockItem image="/assets/stocks/goil.svg" label="Goil" code="GOIL" value="4.92" change={1.76} link="/stock/GOIL" />
-                        <StockItem image="/assets/stocks/guiness.svg" label="Guinness Ghana" code="GGBL" value="28.15" change={-0.38} link="/stock/GGBL" />
-                        <StockItem image="/assets/stocks/mtn.svg" label="MTN" code="MTNGH" value="1.95" change={0.21} link="/stock/MTNGH" />
-                        <StockItem image="/assets/stocks/societe-general.svg" label="Societe Generale" code="SOGEGH" value="10.60" change={-1.10} link="/stock/SOGEGH" />
-                        <StockItem image="/assets/stocks/standard-chartered.svg" label="Standard Chartered" code="SCB" value="18.75" change={0.92} link="/stock/SCB" />
-                        <StockItem image="/assets/stocks/total.svg" label="TotalEnergies" code="TOTAL" value="7.85" change={-0.67} link="/stock/TOTAL" />
-                        <StockItem image="/assets/stocks/tullow-oil.svg" label="Tullow Oil" code="TLW" value="9.40" change={1.48} link="/stock/TLW" />
-                        <StockItem image="/assets/stocks/unilever.svg" label="Unilever Ghana" code="UNIL" value="21.30" change={-0.25} link="/stock/UNIL" />
-                        <StockItem image="/assets/stocks/sic.png" label="SIC Insurance" code="SIC" value="2.18" change={0.73} link="/stock/SIC" />
-                        <StockItem image="/assets/stocks/republic.webp" label="Republic Bank" code="RBGH" value="6.05" change={-0.54} link="/stock/RBGH" />
-                        <StockItem image="/assets/stocks/trustbank.jpg" label="Trust Bank Gambia" code="TBL" value="3.90" change={1.09} link="/stock/TBL" />
-                        <StockItem image="/assets/stocks/fanmilk.png" label="Fan Milk" code="FML" value="25.60" change={-0.80} link="/stock/FML" />
+                        <StockItem
+                          image="/assets/stocks/access.svg"
+                          label="Access Bank"
+                          code="ACCESS"
+                          value={moreStockStats['ACCESS']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['ACCESS']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/ACCESS"
+                        />
+                        <StockItem
+                          image="/assets/stocks/anglogold.svg"
+                          label="AngloGold Ashanti"
+                          code="AGA"
+                          value={moreStockStats['AADS']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['AADS']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/AADS"
+                        />
+                        <StockItem
+                          image="/assets/stocks/asante-gold.svg"
+                          label="Asante Gold"
+                          code="ASG"
+                          value={moreStockStats['ASG']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['ASG']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/ASG"
+                        />
+                        <StockItem
+                          image="/assets/stocks/atlantic-lithium.svg"
+                          label="Atlantic Lithium"
+                          code="ALLGH"
+                          value={moreStockStats['ALLGH']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['ALLGH']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/ALLGH"
+                        />
+                        <StockItem
+                          image="/assets/stocks/ecobank.svg"
+                          label="Ecobank"
+                          code="EGH"
+                          value={moreStockStats['EGH']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['EGH']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/EGH"
+                        />
+                        <StockItem
+                          image="/assets/stocks/gcb.webp"
+                          label="Ghana Commercial Bank"
+                          code="GCB"
+                          value={moreStockStats['GCB']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['GCB']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/GCB"
+                        />
+                        <StockItem
+                          image="/assets/stocks/goil.svg"
+                          label="Goil"
+                          code="GOIL"
+                          value={moreStockStats['GOIL']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['GOIL']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/GOIL"
+                        />
+                        <StockItem
+                          image="/assets/stocks/guiness.svg"
+                          label="Guinness Ghana"
+                          code="GGBL"
+                          value={moreStockStats['GGBL']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['GGBL']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/GGBL"
+                        />
+                        <StockItem
+                          image="/assets/stocks/mtn.svg"
+                          label="MTN"
+                          code="MTNGH"
+                          value={moreStockStats['MTNGH']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['MTNGH']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/MTNGH"
+                        />
+                        <StockItem
+                          image="/assets/stocks/societe-general.svg"
+                          label="Societe Generale"
+                          code="SOGEGH"
+                          value={moreStockStats['SOGEGH']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['SOGEGH']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/SOGEGH"
+                        />
+                        <StockItem
+                          image="/assets/stocks/standard-chartered.svg"
+                          label="Standard Chartered"
+                          code="SCB"
+                          value={moreStockStats['SCB']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['SCB']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/SCB"
+                        />
+                        <StockItem
+                          image="/assets/stocks/total.svg"
+                          label="TotalEnergies"
+                          code="TOTAL"
+                          value={moreStockStats['TOTAL']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['TOTAL']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/TOTAL"
+                        />
+                        <StockItem
+                          image="/assets/stocks/tullow-oil.svg"
+                          label="Tullow Oil"
+                          code="TLW"
+                          value={moreStockStats['TLW']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['TLW']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/TLW"
+                        />
+                        <StockItem
+                          image="/assets/stocks/unilever.svg"
+                          label="Unilever Ghana"
+                          code="UNIL"
+                          value={moreStockStats['UNIL']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['UNIL']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/UNIL"
+                        />
+                        <StockItem
+                          image="/assets/stocks/sic.png"
+                          label="SIC Insurance"
+                          code="SIC"
+                          value={moreStockStats['SIC']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['SIC']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/SIC"
+                        />
+                        <StockItem
+                          image="/assets/stocks/republic.webp"
+                          label="Republic Bank"
+                          code="RBGH"
+                          value={moreStockStats['RBGH']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['RBGH']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/RBGH"
+                        />
+                        <StockItem
+                          image="/assets/stocks/trustbank.jpg"
+                          label="Trust Bank Gambia"
+                          code="TBL"
+                          value={moreStockStats['TBL']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['TBL']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/TBL"
+                        />
+                        <StockItem
+                          image="/assets/stocks/fanmilk.png"
+                          label="Fan Milk"
+                          code="FML"
+                          value={moreStockStats['FML']?.key_statistics?.current_price || ' '}
+                          change={Number(moreStockStats['FML']?.key_statistics?.percentage_change ?? 0)}
+                          link="/stock/FML"
+                        />
                     </Content>
                 </Right>
             </ContentWrapper>

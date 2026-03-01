@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FiMinus } from 'react-icons/fi';
 
 interface DataItemProps {
   label: string;
@@ -119,7 +120,7 @@ const DataChange = styled.p<{
   font-weight: 500;
   color: ${({ $isPositive, $isUnchanged }) => 
     $isUnchanged 
-      ? '#888888' 
+      ? '#727e8a' 
       : $isPositive 
         ? '#13D14C' 
         : '#FF0606'
@@ -136,6 +137,12 @@ const Icon = styled(Image)`
   width: 16px;
   height: 16px;
   object-fit: contain;
+`;
+
+const DashIcon = styled(FiMinus)`
+  width: 16px;
+  height: 16px;
+  color: #727e8a;
 `;
 
 export const StockItem: React.FC<DataItemProps> = ({ label, code, value, change, image, link }) => {
@@ -172,8 +179,9 @@ export const StockItem: React.FC<DataItemProps> = ({ label, code, value, change,
           >
             {Math.abs(change)}%
           </DataChange>
-          {!isUnchanged && (
-            <Icon src={iconSrc || ''} alt={iconAlt} width={16} height={16} />
+          {isUnchanged && <DashIcon />}
+          {!isUnchanged && iconSrc && (
+            <Icon src={iconSrc} alt={iconAlt} width={16} height={16} />
           )}
         </DataChangeContainer>
         <StockValue>GH₵ {value}</StockValue>

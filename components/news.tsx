@@ -232,7 +232,7 @@ const News = ({
   const displayTags = hasTags ? tags.slice(0, 3) : []
   const isMarketsCategory = subcategory.toLowerCase() === 'markets'
   const shouldShowLogos = isMarketsCategory && hasTags
-  const shouldShowSource = sourceText && sourceText.toLowerCase() !== 'ghanapolitan'
+  const shouldShowSource = sourceText && sourceText.toLowerCase() !== 'Ghanapolitan'
   const sourceImage = sourceText ? getSourceImage(sourceText) : '/assets/sources/default.png'
 
   return (

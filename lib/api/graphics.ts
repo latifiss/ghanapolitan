@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://oak.21centurynews.com/api/ghanapolitan/graphic';
+const BASE_URL = 'https://oak.21centurynews.com/api/Ghanapolitan/graphic';
 
 export interface Graphic {
   _id: string;

@@ -332,7 +332,7 @@ const Article = ({
   height = 450 
 }: ArticleProps) => {
   const tagText = getTagText(tag)
-  const shouldShowSource = sourceText && sourceText.toLowerCase() !== 'ghanapolitan'
+  const shouldShowSource = sourceText && sourceText.toLowerCase() !== 'Ghanapolitan'
   const sourceImage = sourceText ? getSourceImage(sourceText) : '/assets/sources/default.png'
 
   if (slug && !onClick) {

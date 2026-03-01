@@ -480,7 +480,7 @@ export default function HomePage() {
           <NewsContent>
           <LogosCard
             title="Ghana’s Economic Outlook for 2024: Navigating Challenges and Opportunities"
-            image='https://www.myjoyonline.com/wp-content/uploads/2026/01/mahama-450x300.jpeg'
+            image='https://www.Ghanapolitan/wp-content/uploads/2026/01/mahama-450x300.jpeg'
             description="As Ghana steps into 2024, the economic landscape is marked by a blend of challenges and opportunities. As Ghana steps into 2024, the economic landscape is marked by a blend of challenges and opportunities. As Ghana steps into 2024, the economic landscape is marked by a blend of challenges and opportunities."
               time="5 MIN AGO"
               logos={[
@@ -501,7 +501,7 @@ export default function HomePage() {
           />
           <LogosCard
             title="Ghana’s Economic Outlook for 2024: Navigating Challenges and Opportunities"
-            image='https://www.myjoyonline.com/wp-content/uploads/2026/01/1-2-340x191.webp'
+            image='https://www.Ghanapolitan/wp-content/uploads/2026/01/1-2-340x191.webp'
             description="As Ghana steps into 2024, the economic landscape is marked by a blend of challenges and opportunities. As Ghana steps into 2024, the economic landscape is marked by a blend of challenges and opportunities. As Ghana steps into 2024, the economic landscape is marked by a blend of challenges and opportunities."
               time="5 MIN AGO"
           />

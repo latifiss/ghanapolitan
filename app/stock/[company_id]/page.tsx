@@ -30,23 +30,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const changeText = priceChange >= 0 ? `+${priceChange}%` : `${priceChange}%`;
 
     return {
-      title: `${ticker} | ${companyName} | GhanaPolitan`,
+      title: `${ticker} | ${companyName} | Ghanapolitan`,
       description: `Stock information for ${companyName} (${ticker}) - Current price: ${currentPrice} (${changeText}). View financials, earnings, dividends, and ownership data.`,
       openGraph: {
-        title: `${ticker} | ${companyName} | GhanaPolitan`,
+        title: `${ticker} | ${companyName} | Ghanapolitan`,
         description: `Stock information for ${companyName} (${ticker}) - Current price: ${currentPrice} (${changeText})`,
         type: 'website',
       },
       twitter: {
         card: 'summary',
-        title: `${ticker} | ${companyName} | GhanaPolitan`,
+        title: `${ticker} | ${companyName} | Ghanapolitan`,
         description: `Stock information for ${companyName} (${ticker}) - Current price: ${currentPrice} (${changeText})`,
       },
       keywords: [companyName, ticker, 'stock', 'Ghana Stock Exchange', 'GSE', 'investing', 'shares', 'trading'],
     };
   } catch {
     return {
-      title: 'Stock | GhanaPolitan',
+      title: 'Stock | Ghanapolitan',
       description: 'Stock information on Ghana Stock Exchange',
     };
   }

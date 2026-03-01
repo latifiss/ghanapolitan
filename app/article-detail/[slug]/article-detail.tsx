@@ -198,7 +198,7 @@ const ArticleDetail = ({ article, similarArticles }: ArticleDetailProps) => {
         if (!article?._id) return;
 
         if (typeof window !== 'undefined') {
-            const bookmarks = JSON.parse(localStorage.getItem('ghanapolitan_bookmarks') || '[]');
+            const bookmarks = JSON.parse(localStorage.getItem('Ghanapolitan_bookmarks') || '[]');
             setIsBookmarked(bookmarks.includes(article._id));
         }
     }, [article?._id]);
@@ -214,7 +214,7 @@ const ArticleDetail = ({ article, similarArticles }: ArticleDetailProps) => {
     const handleBookmark = () => {
         if (typeof window === 'undefined' || !article._id) return;
         
-        const bookmarks = JSON.parse(localStorage.getItem('ghanapolitan_bookmarks') || '[]');
+        const bookmarks = JSON.parse(localStorage.getItem('Ghanapolitan_bookmarks') || '[]');
         let newBookmarks;
         
         if (isBookmarked) {
@@ -226,7 +226,7 @@ const ArticleDetail = ({ article, similarArticles }: ArticleDetailProps) => {
             setIsBookmarked(true);
             showToastMessage('Added to bookmarks');
         }
-        localStorage.setItem('ghanapolitan_bookmarks', JSON.stringify(newBookmarks));
+        localStorage.setItem('Ghanapolitan_bookmarks', JSON.stringify(newBookmarks));
     };
 
     const showToastMessage = (message: string) => {
@@ -350,7 +350,7 @@ const ArticleDetail = ({ article, similarArticles }: ArticleDetailProps) => {
                                 description={item.description}
                                 time={formatDate(item.published_at)}
                                 image={item.image_url || "/placeholder.jpg"}
-                                subcategory={item.category}
+                                subcategory={item.subcategory?.[0] || item.category || ' '}
                             />
                         ))}
                     </div>

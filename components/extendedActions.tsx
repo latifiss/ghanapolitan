@@ -118,7 +118,7 @@ interface ExtendedActionsProps {
 }
 
 const ExtendedActions = ({ onBookmark, onShare, isBookmarked, sourceText }: ExtendedActionsProps) => {
-    const shouldShowSource = sourceText && sourceText.toLowerCase() !== 'ghanapolitan'
+    const shouldShowSource = sourceText && sourceText.toLowerCase() !== 'Ghanapolitan'
     const sourceImage = sourceText ? getSourceImage(sourceText) : '/assets/sources/default.png'
 
     return (
