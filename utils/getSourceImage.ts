@@ -164,6 +164,7 @@ export function getSourceImage(sourceName: string): string {
     'Ligue1': 'ligue-1.png',
     'Fifa.com': 'fifa-com.png',
     'Abidjan.net': 'abidjan.net.png',
+    'GhanaScore': 'ghana-score.png',
   };
 
   if (!sourceName) return '/assets/sources/default.png';
