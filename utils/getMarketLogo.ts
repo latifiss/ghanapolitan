@@ -45,7 +45,7 @@ export function getMarketLogoByName(stockName: string): string {
     'goldbod': '/assets/core/goldbod.png',
     'comac': '/assets/core/comac.png',
     'gse': '/assets/core/gse.png',
-    'ghana stock exchange': '/assets/core/gse.png',
+    'ghana stock exchange': '/assets/sources/gse.png',
 
     'cocoa': '/assets/core/cocoa.svg',
     'crude-oil': '/assets/core/crude-oil.svg',
