@@ -1,5 +1,9 @@
 <p align="center">
+<<<<<<< HEAD
   <img src="./public/android-chrome-192x192.png" alt="logo" width="150">
+=======
+  <img src="./public/assets/logo-black.svg" alt="logo" width="150">
+>>>>>>> febfbd49e6739d50aad0b01bedcd6280627964e8
 </p>
 
 <h1 align="center">Ghanapolitan</h1>
@@ -11,11 +15,20 @@ Bootstrapped with create-next-app, this project is ready for development and dep
 
 ## 📦 Features
 
+<<<<<<< HEAD
+
 - Next.js + React
 - TypeScript for type safety
 - Component-based architecture
 - Clean folder structure (`app`, `components`, `lib/api`, `hooks`, etc.)
-- Ready for scalable development 🛠️
+- # Ready for scalable development 🛠️
+
+* Next.js + React
+* TypeScript for type safety
+* Component-based architecture
+* Clean folder structure (`app`, `components`, `lib/api`, `hooks`, etc.)
+* Ready for scalable development 🛠️
+  > > > > > > > febfbd49e6739d50aad0b01bedcd6280627964e8
 
 ## 🚀 Getting Started
 
@@ -73,6 +86,7 @@ Any changes you make will auto-refresh 🎉
 Here’s how the project is organized:
 
 ```
+<<<<<<< HEAD
 ├── ads/
 ├── app/
 ├── components/
@@ -86,6 +100,21 @@ Here’s how the project is organized:
 ├── utils/
 ├── package.json
 ├── next.config.ts
+=======
+├── ads/
+├── app/
+├── components/
+├── data/
+├── hooks/
+├── lib/api/
+├── public/
+├── store/
+├── styles/
+├── types/
+├── utils/
+├── package.json
+├── next.config.ts
+>>>>>>> febfbd49e6739d50aad0b01bedcd6280627964e8
 └── tsconfig.json
 ```
 
@@ -105,19 +134,33 @@ Each directory serves a purpose:
 
 🛠 **Technologies Used**
 
-| Technology            | Purpose              |
+<<<<<<< HEAD
+| Technology | Purpose |
 | --------------------- | -------------------- |
-| Next.js               | Framework for React  |
-| TypeScript            | Type-safe JavaScript |
-| React                 | Frontend UI          |
-| CSS/Styled components | Styling              |
+| Next.js | Framework for React |
+| TypeScript | Type-safe JavaScript |
+| React | Frontend UI |
+=======
+| Technology | Purpose |
+| ---------------- | -------------------- |
+| Next.js | Framework for React |
+| TypeScript | Type-safe JavaScript |
+| React | Frontend UI |
+
+> > > > > > > febfbd49e6739d50aad0b01bedcd6280627964e8
+> > > > > > > | CSS/Styled components | Styling |
 
 ---
 
 ## 🧪 Testing
 
+<<<<<<< HEAD
 ✨ _Not configured yet._
-You can integrate your preferred testing framework later (e.g., Jest, React Testing Library).
+=======
+✨ _Not configured yet._
+
+> > > > > > > febfbd49e6739d50aad0b01bedcd6280627964e8
+> > > > > > > You can integrate your preferred testing framework later (e.g., Jest, React Testing Library).
 
 ---
 
@@ -127,7 +170,12 @@ This Next.js app can be deployed to platforms like **Vercel**, **Netlify**, or *
 
 👉 Simply connect the GitHub repo in the platform’s dashboard and deploy with one click!
 
+<<<<<<< HEAD
 _No extra configuration needed for simple deployments._
+=======
+_No extra configuration needed for simple deployments._
+
+> > > > > > > febfbd49e6739d50aad0b01bedcd6280627964e8
 
 ---
 
@@ -147,3 +195,11 @@ Contributions make the community stronger 💪
 
 If you enjoyed this project or it helped you —
 ⭐ **Star the repo!**
+<<<<<<< HEAD
+=======
+
+---
+
+If you want, I can also generate badges (like **Build Status**, **Coverage**, **License**, etc.) or customize this further based on repo details 👍
+
+> > > > > > > febfbd49e6739d50aad0b01bedcd6280627964e8
