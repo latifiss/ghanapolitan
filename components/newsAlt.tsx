@@ -364,7 +364,7 @@ const NewsAlt = ({
   const tagText = getTagText(tag)
   const hasTags = tags && tags.length > 0
   const displayTags = hasTags ? tags.slice(0, 3) : []
-  const shouldShowSource = sourceText && sourceText.toLowerCase() !== 'Ghanapolitan'
+  const shouldShowSource = sourceText && sourceText !== 'Ghanapolitan'
   const sourceImage = sourceText ? getSourceImage(sourceText) : '/assets/sources/default.png'
   const isMarketsCategory = subcategory.toLowerCase() === 'markets'
   const shouldShowLogos = isMarketsCategory && hasTags

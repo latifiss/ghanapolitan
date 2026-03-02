@@ -49,6 +49,8 @@ export function getMarketLogoByName(stockName: string): string {
 
     'cocoa': '/assets/core/cocoa.svg',
     'crude-oil': '/assets/core/crude-oil.svg',
+    'us-dollar': '/assets/core/dollar.svg',
+    'us dollar': '/assets/core/dollar.svg',
     'dollar': '/assets/core/dollar.svg',
     'gold': '/assets/core/gold.svg',
     'silver': '/assets/core/silver.svg',
