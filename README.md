@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/logo-black.svg" alt="globe" width="150">
+  <img src="./public/assets/logo-black.svg" alt="logo" width="150">
 </p>
 
 <h1 align="center">Ghanapolitan</h1>
