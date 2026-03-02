@@ -1,12 +1,10 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="./assets/logo-black.svg" alt="globe" width="150">
+</p>
 
-Absolutely! Here’s a **comprehensive, emoji-rich README** for your GitHub project: [latifiss/ghanapolitan • GitHub Repo](https://github.com/latifiss/ghanapolitan)
+<h1 align="center">Ghanapolitan</h1>
 
----
-
-# 🏙️ Ghanapolitan
-
-**A modern, full-stack Next.js app built with ❤️ and TypeScript!**
+**A modern, full-stack Next.js news app built with ❤️ and TypeScript!**
 Bootstrapped with create-next-app, this project is ready for development and deployment 🚀. It currently has a solid foundations structure with organized folders for ads, components, data, hooks, API utilities, styles, and more.
 
 ---
@@ -18,10 +16,6 @@ Bootstrapped with create-next-app, this project is ready for development and dep
 * Component-based architecture
 * Clean folder structure (`app`, `components`, `lib/api`, `hooks`, etc.)
 * Ready for scalable development 🛠️
-
-*Currently no live description in the repo — feel free to customize further!*
-
----
 
 ## 🚀 Getting Started
 
@@ -116,7 +110,7 @@ Each directory serves a purpose:
 | Next.js          | Framework for React  |
 | TypeScript       | Type-safe JavaScript |
 | React            | Frontend UI          |
-| CSS/SCSS Modules | Styling              |
+| CSS/Styled components | Styling              |
 
 ---
 
@@ -154,18 +148,6 @@ Contributions make the community stronger 💪
 If you enjoyed this project or it helped you —
 ⭐ **Star the repo!**
 
----
-
-## 📜 License
-
-*No license specified.*
-Add a license file (e.g., MIT) if you want others to reuse your code 📄
-
----
-
-## 💬 Contact
-
-Made with 💛 by **latifiss** — feel free to link your portfolio or socials here!
 
 ---
 
