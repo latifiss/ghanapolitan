@@ -44,8 +44,7 @@ const browserCacheAdapter: AxiosAdapter = async (config) => {
   const isPublicGet =
     typeof window !== 'undefined' &&
     config.method?.toUpperCase() === 'GET' &&
-    !config.headers?.get?.('authorization') &&
-    true;
+    !config.headers?.get?.('authorization');
 
   if (!isPublicGet) {
     return defaultAdapter(config);
