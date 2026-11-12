@@ -20,7 +20,7 @@ function cacheKey(config: Parameters<AxiosAdapter>[0]) {
     typeof config.params === 'string'
       ? config.params
       : config.params
-        ? new URLSearchParams(config.params as Record<string, string>).toString()
+        ? JSON.stringify(config.params)
         : '';
 
   return [config.method?.toUpperCase() ?? 'GET', base, url, params].join('|');
@@ -45,7 +45,7 @@ const browserCacheAdapter: AxiosAdapter = async (config) => {
     typeof window !== 'undefined' &&
     config.method?.toUpperCase() === 'GET' &&
     !config.headers?.get?.('authorization') &&
-    config.cache !== 'no-store';
+    true;
 
   if (!isPublicGet) {
     return defaultAdapter(config);
